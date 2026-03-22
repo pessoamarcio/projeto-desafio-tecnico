@@ -1,4 +1,4 @@
-package sistemapedidos.controller.cliente;
+package sistemapedidos.controller;
 
 import sistemapedidos.TestReflectionUtils;
 import sistemapedidos.dto.ClienteCreateRequest;

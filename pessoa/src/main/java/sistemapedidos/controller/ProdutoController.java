@@ -1,4 +1,4 @@
-package sistemapedidos.controller.produto;
+package sistemapedidos.controller;
 
 import sistemapedidos.dto.ProdutoCreateRequest;
 import sistemapedidos.dto.ProdutoResponse;

@@ -1,4 +1,4 @@
-package sistemapedidos.controller.pedido;
+package sistemapedidos.controller;
 
 import sistemapedidos.dto.PedidoCreateRequest;
 import sistemapedidos.dto.PedidoItemRequest;
@@ -69,7 +69,7 @@ public class PedidoController {
         }
         for (PedidoItemRequest item : itens) {
             if (item == null || item.produtoId() == null) {
-                throw new RegraNegocioException("Produto Ã© obrigatÃ³rio.");
+                throw new RegraNegocioException("Produto ÃƒÂ© obrigatÃƒÂ³rio.");
             }
             quantidades.merge(item.produtoId(), item.quantidade(), Integer::sum);
         }
