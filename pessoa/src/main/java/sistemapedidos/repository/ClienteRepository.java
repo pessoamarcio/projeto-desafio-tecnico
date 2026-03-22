@@ -23,10 +23,6 @@ public class ClienteRepository {
 		return clienteRepositoryJpa.findById(id);
 	}
 
-	public boolean existsByCpf(String cpf) {
-		return clienteRepositoryJpa.existsByCpf(cpf);
-	}
-
 	public boolean existsByEmailIgnoreCase(String email) {
 		return clienteRepositoryJpa.existsByEmailIgnoreCase(email);
 	}

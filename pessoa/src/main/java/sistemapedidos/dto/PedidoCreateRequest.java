@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.UUID;
 
 public record PedidoCreateRequest(
-        @NotNull(message = "clienteId Ã© obrigatorio")
+        @NotNull(message = "clienteId é obrigatório")
         @Schema(description = "UUID do cliente", example = "")
         UUID clienteId,
-        @NotEmpty(message = "itens Ã© obrigatorio")
+        @NotEmpty(message = "itens é obrigatório")
         @Schema(description = "Lista de itens do pedido")
         List<@NotNull PedidoItemRequest> itens
 ) {

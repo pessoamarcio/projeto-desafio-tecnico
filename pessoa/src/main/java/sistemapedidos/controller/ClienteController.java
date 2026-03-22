@@ -31,7 +31,6 @@ public class ClienteController {
 		Cliente cliente = clienteService.cadastrar(
 				request.nome(),
 				request.email(),
-				request.cpf(),
 				request.status()
 		);
 		return ResponseEntity.status(HttpStatus.CREATED).body(ClienteResponse.from(cliente));

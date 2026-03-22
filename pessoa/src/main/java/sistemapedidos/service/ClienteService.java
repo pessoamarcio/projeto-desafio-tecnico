@@ -4,7 +4,7 @@ import sistemapedidos.exception.NaoEncontradoException;
 import sistemapedidos.exception.RegraNegocioException;
 import sistemapedidos.interfaces.ClienteServiceInterface;
 import sistemapedidos.model.Cliente;
-import sistemapedidos.model.StatusCliente;
+import sistemapedidos.model.enums.StatusCliente;
 import sistemapedidos.repository.ClienteRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,20 +22,17 @@ public class ClienteService implements ClienteServiceInterface {
 
 	@Transactional
 	@Override
-	public Cliente cadastrar(String nome, String email, String cpf, StatusCliente status) {
-		if (clienteRepository.existsByCpf(cpf)) {
-			throw new RegraNegocioException("CPF jÃ¡ cadastrado.");
-		}
+	public Cliente cadastrar(String nome, String email, StatusCliente status) {
 		if (clienteRepository.existsByEmailIgnoreCase(email)) {
-			throw new RegraNegocioException("E-mail jÃ¡ cadastrado.");
+			throw new RegraNegocioException("E-mail já cadastrado.");
 		}
-		return clienteRepository.save(new Cliente(nome, email, cpf, status));
+		return clienteRepository.save(new Cliente(nome, email, status));
 	}
 
 	@Transactional(readOnly = true)
 	@Override
 	public Cliente buscarPorId(UUID id) {
 		return clienteRepository.findById(id)
-				.orElseThrow(() -> new NaoEncontradoException("Cliente nÃ£o encontrado: " + id));
+				.orElseThrow(() -> new NaoEncontradoException("Cliente não encontrado: " + id));
 	}
 }

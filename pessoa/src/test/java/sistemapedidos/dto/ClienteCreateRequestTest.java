@@ -15,10 +15,10 @@ class ClienteCreateRequestTest {
 
     @Test
     void deveValidarCamposObrigatorios() {
-        ClienteCreateRequest request = new ClienteCreateRequest("", "email-invalido", "", null);
+        ClienteCreateRequest request = new ClienteCreateRequest("", "email-inválido", null);
 
         Set<ConstraintViolation<ClienteCreateRequest>> violations = validator.validate(request);
 
-        assertEquals(3, violations.size());
+        assertEquals(2, violations.size());
     }
 }

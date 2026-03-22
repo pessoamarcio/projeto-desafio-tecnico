@@ -69,7 +69,7 @@ public class PedidoController {
         }
         for (PedidoItemRequest item : itens) {
             if (item == null || item.produtoId() == null) {
-                throw new RegraNegocioException("Produto ÃƒÂ© obrigatÃƒÂ³rio.");
+                throw new RegraNegocioException("Produto é obrigatório.");
             }
             quantidades.merge(item.produtoId(), item.quantidade(), Integer::sum);
         }

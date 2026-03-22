@@ -2,7 +2,7 @@ package sistemapedidos.dto;
 
 import sistemapedidos.TestReflectionUtils;
 import sistemapedidos.model.Cliente;
-import sistemapedidos.model.StatusCliente;
+import sistemapedidos.model.enums.StatusCliente;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
@@ -13,7 +13,7 @@ class ClienteResponseTest {
 
     @Test
     void fromDeveMapearCliente() {
-        Cliente cliente = new Cliente("Maria", "maria@email.com", "12345678901", StatusCliente.ATIVO);
+        Cliente cliente = new Cliente("Maria", "maria@email.com", StatusCliente.ATIVO);
         UUID id = UUID.randomUUID();
         TestReflectionUtils.setField(cliente, "id", id);
 

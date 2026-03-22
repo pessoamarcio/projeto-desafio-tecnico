@@ -32,7 +32,7 @@ public class ApiExceptionHandler {
 				.map(this::toCampoInvalido)
 				.toList();
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-				.body(new ApiValidationErrorResponse("Requisicao invalida.", campos));
+				.body(new ApiValidationErrorResponse("Requisição inválida.", campos));
 	}
 
 	private ApiValidationErrorResponse.CampoInvalido toCampoInvalido(FieldError fieldError) {

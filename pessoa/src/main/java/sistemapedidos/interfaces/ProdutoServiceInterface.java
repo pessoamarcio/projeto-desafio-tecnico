@@ -1,7 +1,7 @@
 package sistemapedidos.interfaces;
 
 import sistemapedidos.model.Produto;
-import sistemapedidos.model.StatusProduto;
+import sistemapedidos.model.enums.StatusProduto;
 import java.math.BigDecimal;
 import java.util.UUID;
 

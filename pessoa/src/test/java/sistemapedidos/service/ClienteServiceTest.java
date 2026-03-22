@@ -3,7 +3,7 @@ package sistemapedidos.service;
 import sistemapedidos.exception.NaoEncontradoException;
 import sistemapedidos.exception.RegraNegocioException;
 import sistemapedidos.model.Cliente;
-import sistemapedidos.model.StatusCliente;
+import sistemapedidos.model.enums.StatusCliente;
 import sistemapedidos.repository.ClienteRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,49 +31,36 @@ class ClienteServiceTest {
     private ClienteService clienteService;
 
     @Test
-    void cadastrarDeveSalvarClienteQuandoCpfEEmailNaoExistem() {
+    void cadastrarDeveSalvarClienteQuandoEmailNaoExiste() {
         String nome = "Maria";
         String email = "maria@email.com";
-        String cpf = "12345678901";
-        Cliente salvo = new Cliente(nome, email, cpf, StatusCliente.ATIVO);
-        when(clienteRepository.existsByCpf(cpf)).thenReturn(false);
+        Cliente salvo = new Cliente(nome, email, StatusCliente.ATIVO);
         when(clienteRepository.existsByEmailIgnoreCase(email)).thenReturn(false);
         when(clienteRepository.save(org.mockito.ArgumentMatchers.any(Cliente.class))).thenReturn(salvo);
 
-        Cliente resultado = clienteService.cadastrar(nome, email, cpf, StatusCliente.ATIVO);
+        Cliente resultado = clienteService.cadastrar(nome, email, StatusCliente.ATIVO);
 
         assertSame(salvo, resultado);
         ArgumentCaptor<Cliente> captor = ArgumentCaptor.forClass(Cliente.class);
         verify(clienteRepository).save(captor.capture());
         assertEquals(nome, captor.getValue().getNome());
         assertEquals(email, captor.getValue().getEmail());
-        assertEquals(cpf, captor.getValue().getCpf());
         assertEquals(StatusCliente.ATIVO, captor.getValue().getStatus());
-    }
-
-    @Test
-    void cadastrarDeveLancarExcecaoQuandoCpfJaExiste() {
-        String cpf = "12345678901";
-        when(clienteRepository.existsByCpf(cpf)).thenReturn(true);
-
-        assertThrows(RegraNegocioException.class,
-                () -> clienteService.cadastrar("Maria", "maria@email.com", cpf, StatusCliente.ATIVO));
     }
 
     @Test
     void cadastrarDeveLancarExcecaoQuandoEmailJaExiste() {
         String email = "maria@email.com";
-        when(clienteRepository.existsByCpf("12345678901")).thenReturn(false);
         when(clienteRepository.existsByEmailIgnoreCase(email)).thenReturn(true);
 
         assertThrows(RegraNegocioException.class,
-                () -> clienteService.cadastrar("Maria", email, "12345678901", StatusCliente.ATIVO));
+                () -> clienteService.cadastrar("Maria", email, StatusCliente.ATIVO));
     }
 
     @Test
     void buscarPorIdDeveRetornarClienteQuandoEncontrado() {
         UUID id = UUID.randomUUID();
-        Cliente cliente = new Cliente("Maria", "maria@email.com", "12345678901", StatusCliente.ATIVO);
+        Cliente cliente = new Cliente("Maria", "maria@email.com", StatusCliente.ATIVO);
         when(clienteRepository.findById(id)).thenReturn(Optional.of(cliente));
 
         Cliente resultado = clienteService.buscarPorId(id);

@@ -18,7 +18,7 @@ class ApiExceptionHandlerValidacaoTest {
     @Test
     void handleValidacaoDeveRetornarCamposInvalidos() throws NoSuchMethodException {
         BeanPropertyBindingResult bindingResult = new BeanPropertyBindingResult(new DummyRequest(null), "dummyRequest");
-        bindingResult.rejectValue("nome", "NotBlank", "nome obrigatorio");
+        bindingResult.rejectValue("nome", "NotBlank", "nome obrigatório");
         Method method = DummyController.class.getDeclaredMethod("dummy", DummyRequest.class);
         MethodParameter parameter = new MethodParameter(method, 0);
         MethodArgumentNotValidException exception = new MethodArgumentNotValidException(parameter, bindingResult);
@@ -26,10 +26,10 @@ class ApiExceptionHandlerValidacaoTest {
         ResponseEntity<ApiExceptionHandler.ApiValidationErrorResponse> response = handler.handleValidacao(exception);
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("Requisicao invalida.", response.getBody().mensagem());
+        assertEquals("Requisição inválida.", response.getBody().mensagem());
         assertEquals(1, response.getBody().campos().size());
         assertEquals("nome", response.getBody().campos().getFirst().campo());
-        assertEquals("nome obrigatorio", response.getBody().campos().getFirst().mensagem());
+        assertEquals("nome obrigatório", response.getBody().campos().getFirst().mensagem());
     }
 
     private static final class DummyController {

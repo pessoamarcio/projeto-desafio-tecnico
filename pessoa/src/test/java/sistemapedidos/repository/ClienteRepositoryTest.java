@@ -1,7 +1,7 @@
 package sistemapedidos.repository;
 
 import sistemapedidos.model.Cliente;
-import sistemapedidos.model.StatusCliente;
+import sistemapedidos.model.enums.StatusCliente;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,7 +26,7 @@ class ClienteRepositoryTest {
 
     @Test
     void saveDeveDelegarParaJpa() {
-        Cliente cliente = new Cliente("Maria", "maria@email.com", "12345678901", StatusCliente.ATIVO);
+        Cliente cliente = new Cliente("Maria", "maria@email.com", StatusCliente.ATIVO);
         when(clienteRepositoryJpa.save(cliente)).thenReturn(cliente);
 
         Cliente resultado = clienteRepository.save(cliente);
@@ -37,21 +37,12 @@ class ClienteRepositoryTest {
     @Test
     void findByIdDeveDelegarParaJpa() {
         UUID id = UUID.randomUUID();
-        Cliente cliente = new Cliente("Maria", "maria@email.com", "12345678901", StatusCliente.ATIVO);
+        Cliente cliente = new Cliente("Maria", "maria@email.com", StatusCliente.ATIVO);
         when(clienteRepositoryJpa.findById(id)).thenReturn(Optional.of(cliente));
 
         Optional<Cliente> resultado = clienteRepository.findById(id);
 
         assertSame(cliente, resultado.orElseThrow());
-    }
-
-    @Test
-    void existsByCpfDeveDelegarParaJpa() {
-        when(clienteRepositoryJpa.existsByCpf("123")).thenReturn(true);
-
-        boolean resultado = clienteRepository.existsByCpf("123");
-
-        assertTrue(resultado);
     }
 
     @Test

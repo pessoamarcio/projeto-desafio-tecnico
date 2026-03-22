@@ -14,9 +14,9 @@ class ApiExceptionHandlerNaoEncontradoTest {
     @Test
     void handleNaoEncontradoDeveRetornarNotFound() {
         ResponseEntity<ApiExceptionHandler.ApiErrorResponse> response =
-                handler.handleNaoEncontrado(new NaoEncontradoException("nao encontrado"));
+                handler.handleNaoEncontrado(new NaoEncontradoException("não encontrado"));
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-        assertEquals("nao encontrado", response.getBody().mensagem());
+        assertEquals("não encontrado", response.getBody().mensagem());
     }
 }

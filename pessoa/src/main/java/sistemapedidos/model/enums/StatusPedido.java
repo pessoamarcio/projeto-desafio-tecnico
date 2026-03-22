@@ -1,4 +1,4 @@
-package sistemapedidos.model;
+package sistemapedidos.model.enums;
 
 public enum StatusPedido {
     CRIADO,

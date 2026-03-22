@@ -1,6 +1,6 @@
 package sistemapedidos.model;
 
-import sistemapedidos.model.Cliente;
+import sistemapedidos.model.enums.StatusPedido;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -86,10 +86,10 @@ public class Pedido {
 
     public void substituirItens(List<ItemPedido> novosItens) {
         if (status == StatusPedido.PAGO) {
-            throw new IllegalStateException("Pedido PAGO nÃ£o pode ser alterado.");
+            throw new IllegalStateException("Pedido PAGO não pode ser alterado.");
         }
         if (status == StatusPedido.CANCELADO) {
-            throw new IllegalStateException("Pedido CANCELADO nÃ£o pode ser alterado.");
+            throw new IllegalStateException("Pedido CANCELADO não pode ser alterado.");
         }
         itens.clear();
         for (ItemPedido item : novosItens) {
@@ -104,14 +104,14 @@ public class Pedido {
 
     public void pagar() {
         if (status == StatusPedido.CANCELADO) {
-            throw new IllegalStateException("Pedido CANCELADO nÃ£o pode ser pago.");
+            throw new IllegalStateException("Pedido CANCELADO não pode ser pago.");
         }
         status = StatusPedido.PAGO;
     }
 
     public void cancelar() {
         if (status == StatusPedido.PAGO) {
-            throw new IllegalStateException("Pedido PAGO nÃ£o pode ser alterado.");
+            throw new IllegalStateException("Pedido PAGO não pode ser alterado.");
         }
         if (status == StatusPedido.CANCELADO) {
             return;

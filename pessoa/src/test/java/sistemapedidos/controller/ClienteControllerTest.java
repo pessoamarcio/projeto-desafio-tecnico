@@ -5,7 +5,7 @@ import sistemapedidos.dto.ClienteCreateRequest;
 import sistemapedidos.dto.ClienteResponse;
 import sistemapedidos.interfaces.ClienteServiceInterface;
 import sistemapedidos.model.Cliente;
-import sistemapedidos.model.StatusCliente;
+import sistemapedidos.model.enums.StatusCliente;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -31,11 +31,11 @@ class ClienteControllerTest {
 
     @Test
     void cadastrarDeveRetornarCreatedComClienteResponse() {
-        ClienteCreateRequest request = new ClienteCreateRequest("Maria", "maria@email.com", "12345678901", StatusCliente.ATIVO);
-        Cliente cliente = new Cliente(request.nome(), request.email(), request.cpf(), request.status());
+        ClienteCreateRequest request = new ClienteCreateRequest("Maria", "maria@email.com", StatusCliente.ATIVO);
+        Cliente cliente = new Cliente(request.nome(), request.email(), request.status());
         UUID id = UUID.randomUUID();
         TestReflectionUtils.setField(cliente, "id", id);
-        when(clienteService.cadastrar(request.nome(), request.email(), request.cpf(), request.status())).thenReturn(cliente);
+        when(clienteService.cadastrar(request.nome(), request.email(), request.status())).thenReturn(cliente);
 
         ResponseEntity<ClienteResponse> response = clienteController.cadastrar(request);
 
@@ -47,7 +47,7 @@ class ClienteControllerTest {
     @Test
     void buscarPorIdDeveRetornarClienteResponse() {
         UUID id = UUID.randomUUID();
-        Cliente cliente = new Cliente("Maria", "maria@email.com", "12345678901", StatusCliente.ATIVO);
+        Cliente cliente = new Cliente("Maria", "maria@email.com", StatusCliente.ATIVO);
         TestReflectionUtils.setField(cliente, "id", id);
         when(clienteService.buscarPorId(id)).thenReturn(cliente);
 

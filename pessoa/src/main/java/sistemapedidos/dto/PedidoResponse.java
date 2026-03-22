@@ -2,7 +2,7 @@ package sistemapedidos.dto;
 
 import sistemapedidos.model.ItemPedido;
 import sistemapedidos.model.Pedido;
-import sistemapedidos.model.StatusPedido;
+import sistemapedidos.model.enums.StatusPedido;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;

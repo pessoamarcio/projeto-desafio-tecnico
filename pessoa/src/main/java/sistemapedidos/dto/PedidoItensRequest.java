@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 public record PedidoItensRequest(
-        @NotEmpty(message = "itens Ã© obrigatÃ³rio")
+        @NotEmpty(message = "itens é obrigatório")
         List<@NotNull PedidoItemRequest> itens
 ) {
 }
